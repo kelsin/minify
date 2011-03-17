@@ -56,10 +56,15 @@ to install opensource software. You can install the following things without
 homebrew of course but I would highly recommend looking into this method.
 
 1. Install [node.js](http://nodejs.org/)
+
     `brew install node`
+
 2. Install [npm](http://npmjs.org/)
+
     `curl http://npmjs.org/install.sh | sh`
+
 3. Install [less](http://lesscss.org/)
+
     `npm install less`
 
 ## Problems
