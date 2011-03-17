@@ -55,9 +55,12 @@ I use [Homebrew](http://mxcl.github.com/homebrew/) on my mac
 to install opensource software. You can install the following things without
 homebrew of course but I would highly recommend looking into this method.
 
-* Install node.js: `brew install node`
-* Install [npm](http://npmjs.org/): `curl http://npmjs.org/install.sh | sh`
-* Install less: `npm install less`
+1. Install [node.js](http://nodejs.org/)
+    `brew install node`
+2. Install [npm](http://npmjs.org/)
+    `curl http://npmjs.org/install.sh | sh`
+3. Install [less](http://lesscss.org/)
+    `npm install less`
 
 ## Problems
 
