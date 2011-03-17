@@ -71,7 +71,7 @@ homebrew of course but I would highly recommend looking into this method.
 
 The biggest problem so far is that this method requires a new commit on
 production releases. I'm still trying to think of ways around this but honestly
-I'm not going to worrya bout it for now since it's a nessecary evil for
+I'm not going to worry about it for now since it's a nessecary evil for
 managing some of the other features.
 
 ## Copyright
