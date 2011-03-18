@@ -8,6 +8,10 @@ namespace :minify do
     FileUtils.mkdir(File.join(Minify::JAVASCRIPT_DIR, 'minify'))
   end
 
+  desc "Build all js and css files for production"
+  task :build => ['css/build', 'js/build'] do
+  end
+
   namespace :less do
     task :mkdir => 'minify/mkdir' do
       FileUtils.mkdir(Minify::LESSC_DIR)
@@ -40,6 +44,10 @@ namespace :minify do
   namespace :css do
     task :mkdir => 'minify/mkdir' do
       FileUtils.mkdir(Minify::STYLESHEET_COMPRESSED_DIR)
+    end
+
+    desc "Compile, compress and compact all css files"
+    task :build => ['minify/less/compile', :compress, :compact] do
     end
 
     desc "Run YUI Compressor on all css files"
@@ -81,6 +89,10 @@ namespace :minify do
   namespace :js do
     task :mkdir => 'minify/mkdir' do
       FileUtils.mkdir(Minify::JAVASCRIPT_COMPRESSED_DIR)
+    end
+
+    desc "Compress and compact all js files"
+    task :build => [:compress, :compact] do
     end
 
     desc "Run YUI Compressor on all js files"
