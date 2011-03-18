@@ -15,11 +15,17 @@ module Minify
     def handle_less(*groups)
       if Minify.dev?
         # Link to less files
-        (groups.map do |group|
-           Minify.less(group).map do |file|
-             stylesheet_link_tag file, :rel => 'stylesheet/less'
-           end
-         end + [javascript_include_tag 'less.js']).flatten.compact.join
+        less_files = groups.map do |group|
+          Minify.less(group).map do |file|
+            stylesheet_link_tag file, :rel => 'stylesheet/less'
+          end
+        end.flatten.compact
+
+        unless less_files.empty?
+          less_files << javascript_include_tag 'less.js'
+        end
+
+        less_files.join
       end
     end
 
