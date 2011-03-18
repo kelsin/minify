@@ -30,7 +30,7 @@ module Minify
     @dev_envs = @conf[:development_environments] || ['development']
 
     @dev = defined?(Rails) ? (@dev_envs.include? Rails.env) : false
-    @lessc = system("which lessc")
+    @lessc = system('which lessc')
 
     if self.yui_available?
       @js_compressor = YUI::JavaScriptCompressor.new
