@@ -47,6 +47,12 @@ module Minify
     @conf['stylesheets']
   end
 
+  def self.js(group)
+    self.javascripts[group.to_s].select do |file|
+      /\.js$/ =~ file
+    end
+  end
+
   def self.less(group)
     self.stylesheets[group.to_s].select do |file|
       /\.less$/ =~ file
