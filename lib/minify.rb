@@ -149,7 +149,9 @@ module Minify
     case file
     when /\.less$/
       if Minify.lessc_available?
-        system("#{@lessc} #{Minify.file_raw_path(file)} #{Minify.file_compiled_path(file)}")
+        cmd = "#{@lessc} #{Minify.file_raw_path(file)} #{Minify.file_compiled_path(file)}"
+        puts "... running: #{cmd}"
+        system cmd
       end
     end
   end
