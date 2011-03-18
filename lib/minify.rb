@@ -58,3 +58,5 @@ module Minify
     end
   end
 end
+
+Minify.load_configuration if defined? Rails
