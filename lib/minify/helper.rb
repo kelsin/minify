@@ -2,6 +2,10 @@ module Minify
   module Helper
     include ::ActionView::Helpers::AssetTagHelper
 
+    def minify(*groups)
+      minify_stylesheets(*groups) + minify_javascripts(*groups)
+    end
+
     def minify_stylesheets(*groups)
       (handle_css(*groups) + handle_less(*groups)).html_safe
     end
@@ -11,6 +15,20 @@ module Minify
     end
 
     private
+
+    def handle_js(*groups)
+      groups.map do |group|
+        group_file = File.join('minify', "#{group}.js")
+
+        if Minify.dev? or !File.exists?(File.join(Minify::JAVASCRIPT_DIR, group_file))
+          Minify.js(group).map do |file|
+            javascript_include_tag file
+          end
+        else
+          javascript_include_tag group_file
+        end
+      end.flatten.compact.join
+    end
 
     def handle_less(*groups)
       if Minify.dev?
