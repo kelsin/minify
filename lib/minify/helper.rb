@@ -22,7 +22,7 @@ module Minify
         end.flatten.compact
 
         unless less_files.empty?
-          less_files << javascript_include_tag 'less.js'
+          less_files << javascript_include_tag('less.js')
         end
 
         less_files.join
