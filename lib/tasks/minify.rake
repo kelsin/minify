@@ -21,10 +21,10 @@ namespace :minify do
     task :compile => :mkdir do
       if Minify.lessc_available?
         Minify.stylesheets.keys.each do |group|
-          puts "Group #{group}"
+          puts "Compiling less group: #{group}"
 
           Minify.less(group).each do |file|
-            puts "Compiling #{file}"
+            puts "... compiling: #{file}"
             Minify.compile(file)
           end
         end
@@ -55,12 +55,12 @@ namespace :minify do
     task :compress => :mkdir do
       if Minify.yui_available?
         Minify.stylesheets.keys.each do |group|
-          puts "Compressing CSS Group: #{group}"
+          puts "Compressing css group: #{group}"
 
           Minify.all_css(group).map do |file|
             Minify.file_compiled_path(file)
           end.compact.each do |compiled|
-            puts "Compressing: #{compiled}"
+            puts "... compressing: #{compiled}"
             Minify.compress(compiled)
           end
         end
@@ -70,13 +70,13 @@ namespace :minify do
     desc "Compact all minified css into group files"
     task :compact => :mkdir do
       Minify.stylesheets.keys.each do |group|
-        puts "Compacting CSS Group: #{group}"
+        puts "Compacting css group: #{group}"
 
         File.open(Minify.group_file(group, :css), 'w') do |output|
           Minify.all_css(group).map do |file|
             Minify.file_compressed_path(file)
           end.compact.each do |compressed|
-            puts "Adding: #{compressed}"
+            puts "... adding: #{compressed}"
 
             File.open(compressed, 'r') do |input|
               output.write(input.read)
@@ -100,10 +100,10 @@ namespace :minify do
     task :compress => :mkdir do
       if Minify.yui_available?
         Minify.javascripts.keys.each do |group|
-          puts "Compressing JS Group: #{group}"
+          puts "Compressing js group: #{group}"
 
           Minify.js(group).each do |file|
-            puts "Compressing: #{file}"
+            puts "... compressing: #{file}"
             Minify.compress(file)
           end
         end
@@ -113,13 +113,13 @@ namespace :minify do
     desc "Compact all minified css into group files"
     task :compact => :mkdir do
       Minify.javascripts.keys.each do |group|
-        puts "Compacting JS Group: #{group}"
+        puts "Compacting js group: #{group}"
 
         File.open(Minify.group_file(group, :js), 'w') do |output|
           Minify.js(group).map do |file|
             Minify.file_compressed_path(file)
             end.each do |compressed|
-            puts "Adding: #{compressed}"
+            puts "... adding: #{compressed}"
 
             File.open(compressed, 'r') do |input|
               output.write(input.read)
