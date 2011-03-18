@@ -18,14 +18,12 @@ module Minify
 
     def handle_js(*groups)
       groups.map do |group|
-        group_file = File.join('minify', "#{group}.js")
-
-        if Minify.dev? or !File.exists?(File.join(Minify::JAVASCRIPT_DIR, group_file))
+        if Minify.dev?
           Minify.js(group).map do |file|
             javascript_include_tag file
           end
         else
-          javascript_include_tag group_file
+          javascript_include_tag Minify.group_file(group, :js)
         end
       end.flatten.compact.join
     end
@@ -49,14 +47,12 @@ module Minify
 
     def handle_css(*groups)
       groups.map do |group|
-        group_file = File.join('minify', "#{group}.css")
-
-        if Minify.dev? or !File.exists?(File.join(Minify::STYLESHEET_DIR, group_file))
+        if Minify.dev?
           Minify.css(group).map do |file|
             stylesheet_link_tag file
           end
         else
-          stylesheet_link_tag group_file
+          stylesheet_link_tag Minify.group_file(group, :css)
         end
       end.flatten.compact.join
     end
