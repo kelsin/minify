@@ -41,19 +41,14 @@ module Minify
 
     def handle_css(*groups)
       groups.map do |group|
-        if Minify.dev?
-          nil
-        else
-          # Production
-          group_file = File.join('minify', "#{group}.css")
+        group_file = File.join('minify', "#{group}.css")
 
-          if File.exists?(File.join(Minify::STYLESHEET_DIR, group_file))
-            css_file group_file
-          else
-            Minify.css(group).map do |file|
-              css_file file
-            end
+        if Minify.dev? or !File.exists?(File.join(Minify::STYLESHEET_DIR, group_file))
+          Minify.css(group).map do |file|
+            css_file file
           end
+        else
+          css_file group_file
         end
       end.flatten.compact.join
     end
