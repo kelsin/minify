@@ -23,6 +23,8 @@ module Minify
   JAVASCRIPT_COMPRESSED_DIR = File.join(JAVASCRIPT_DIR, 'minify', 'js')
   STYLESHEET_COMPRESSED_DIR = File.join(JAVASCRIPT_DIR, 'minify', 'css')
 
+  LESS_JS = 'http://lesscss.googlecode.com/files/less-1.0.41.min.js'
+
   def self.load_configuration
     @conf = YAML.load(File.read(ASSET_FILE))
     @dev_envs = @conf[:development_environments] || ['development']

@@ -20,7 +20,7 @@ namespace :minify do
     desc "Compile .less files"
     task :compile => :mkdir do
       if Minify.lessc_available?
-        Minify.stylesheets.each do |group|
+        Minify.stylesheets.keys.each do |group|
           puts "Group #{group}"
 
           Minify.less(group).each do |file|
@@ -33,8 +33,9 @@ namespace :minify do
 
     desc "Download less.js to #{Minify::JAVASCRIPT_DIR}"
     task :install do
+      puts "Downloading #{Minify::LESS_JS} to #{File.join(Minify::JAVASCRIPT_DIR, 'less.js')}"
       File.open(File.join(Minify::JAVASCRIPT_DIR, 'less.js'), 'w') do |output|
-        open('http://lesscss.googlecode.com/files/less-1.0.41.min.js') do |input|
+        open(Minify::LESS_JS) do |input|
           output.write(input.read)
         end
       end
@@ -53,7 +54,7 @@ namespace :minify do
     desc "Run YUI Compressor on all css files"
     task :compress => :mkdir do
       if Minify.yui_available?
-        Minify.stylesheets.each do |group|
+        Minify.stylesheets.keys.each do |group|
           puts "Compressing CSS Group: #{group}"
 
           Minify.all_css(group).map do |file|
@@ -68,7 +69,7 @@ namespace :minify do
 
     desc "Compact all minified css into group files"
     task :compact => :mkdir do
-      Minify.stylesheets.each do |group|
+      Minify.stylesheets.keys.each do |group|
         puts "Compacting CSS Group: #{group}"
 
         File.open(Minify.group_file(group, :css), 'w') do |output|
@@ -98,7 +99,7 @@ namespace :minify do
     desc "Run YUI Compressor on all js files"
     task :compress => :mkdir do
       if Minify.yui_available?
-        Minify.javascripts.each do |group|
+        Minify.javascripts.keys.each do |group|
           puts "Compressing JS Group: #{group}"
 
           Minify.js(group).each do |file|
@@ -111,7 +112,7 @@ namespace :minify do
 
     desc "Compact all minified css into group files"
     task :compact => :mkdir do
-      Minify.javascripts.each do |group|
+      Minify.javascripts.keys.each do |group|
         puts "Compacting JS Group: #{group}"
 
         File.open(Minify.group_file(group, :js), 'w') do |output|
