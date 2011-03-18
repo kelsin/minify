@@ -4,8 +4,8 @@ require 'minify'
 
 namespace :minify do
   task :mkdir do
-    FileUtils.mkdir(File.join(Minify::STYLESHEET_DIR, 'minify'))
-    FileUtils.mkdir(File.join(Minify::JAVASCRIPT_DIR, 'minify'))
+    FileUtils.mkdir(File.join(Minify::STYLESHEET_DIR, 'minify')) unless File.exists?(File.join(Minify::STYLESHEET_DIR, 'minify'))
+    FileUtils.mkdir(File.join(Minify::JAVASCRIPT_DIR, 'minify')) unless File.exists?(File.join(Minify::JAVASCRIPT_DIR, 'minify'))
   end
 
   desc "Build all js and css files for production"
@@ -14,7 +14,7 @@ namespace :minify do
 
   namespace :less do
     task :mkdir => 'minify:mkdir' do
-      FileUtils.mkdir(Minify::LESSC_DIR)
+      FileUtils.mkdir(Minify::LESSC_DIR) unless File.exists?(Minify::LESSC_DIR)
     end
 
     desc "Compile .less files"
@@ -43,7 +43,7 @@ namespace :minify do
 
   namespace :css do
     task :mkdir => 'minify:mkdir' do
-      FileUtils.mkdir(Minify::STYLESHEET_COMPRESSED_DIR)
+      FileUtils.mkdir(Minify::STYLESHEET_COMPRESSED_DIR) unless File.exists?(Minify::STYLESHEET_COMPRESSED_DIR)
     end
 
     desc "Compile, compress and compact all css files"
@@ -88,7 +88,7 @@ namespace :minify do
 
   namespace :js do
     task :mkdir => 'minify:mkdir' do
-      FileUtils.mkdir(Minify::JAVASCRIPT_COMPRESSED_DIR)
+      FileUtils.mkdir(Minify::JAVASCRIPT_COMPRESSED_DIR) unless File.exists?(Minify::JAVASCRIPT_COMPRESSED_DIR)
     end
 
     desc "Compress and compact all js files"
