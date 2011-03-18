@@ -14,6 +14,8 @@ namespace :minify do
 
   desc "Clean all generated css and js files"
   task :clean => ['minify:less:clean', 'minify:css:clean', 'minify:js:clean'] do
+    FileUtils.rm(Dir.glob(File.join(Minify::JAVASCRIPT_DIR, 'minify', '*.js')))
+    FileUtils.rm(Dir.glob(File.join(Minify::STYLESHEET_DIR, 'minify', '*.css')))
   end
 
   namespace :less do
