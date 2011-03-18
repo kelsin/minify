@@ -1,6 +1,7 @@
 # Rails helpers
 if defined?(Rails)
   require 'minify/helper'
+  require 'minify/railtie'
 end
 
 # YUI Compressor
