@@ -40,7 +40,7 @@ module Minify
 
   # Returns true if we can find lessc in the current $PATH
   def self.lessc_available?
-    !@lessc.empty
+    !@lessc.empty?
   end
 
   # Returns true if the yui-compressor gem is available
