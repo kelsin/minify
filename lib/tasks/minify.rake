@@ -58,7 +58,7 @@ namespace :minify do
           puts "Compressing css group: #{group}"
 
           Minify.all_css(group).map do |file|
-            puts "... compressing: #{compiled}"
+            puts "... compressing: #{file}"
             Minify.compress(file)
           end
         end
