@@ -30,7 +30,7 @@ module Minify
     @dev_envs = @conf[:development_environments] || ['development']
 
     @dev = defined?(Rails) ? (@dev_envs.include? Rails.env) : false
-    @lessc = system('which lessc')
+    @lessc = `which lessc`.chomp
 
     if self.yui_available?
       @js_compressor = YUI::JavaScriptCompressor.new
@@ -40,7 +40,7 @@ module Minify
 
   # Returns true if we can find lessc in the current $PATH
   def self.lessc_available?
-    !!@lessc
+    !@lessc.empty
   end
 
   # Returns true if the yui-compressor gem is available
