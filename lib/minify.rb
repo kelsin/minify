@@ -39,21 +39,21 @@ module Minify
   end
 
   def self.javascripts
-    @conf[:javascripts]
+    @conf['javascripts']
   end
 
   def self.stylesheets
-    @conf[:stylesheets]
+    @conf['stylesheets']
   end
 
   def self.less(group)
-    self.stylesheets[group].select do |file|
+    self.stylesheets[group.to_s].select do |file|
       /\.less$/ =~ file
     end
   end
 
   def self.css(group)
-    self.stylesheets[group].select do |file|
+    self.stylesheets[group.to_s].select do |file|
       /\.css$/ =~ file
     end
   end
