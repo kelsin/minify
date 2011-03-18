@@ -28,7 +28,7 @@ module Minify
   end
 
   def self.load_configuration
-    @conf = YAML.load(File.read(config_path))
+    @conf = YAML.load(File.read(ASSET_FILE))
     @dev_envs = @conf[:development_environments] || ['development']
 
     @dev = defined?(Rails) ? (@dev_envs.include? Rails.env) : false
