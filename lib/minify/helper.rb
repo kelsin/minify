@@ -42,6 +42,8 @@ module Minify
         end
 
         less_files.join
+      else
+        ''
       end
     end
 
