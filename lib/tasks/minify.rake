@@ -71,7 +71,7 @@ namespace :minify do
         Minify.stylesheets.keys.each do |group|
           puts "Compressing css group: #{group}"
 
-          Minify.all_css(group).map do |file|
+          Minify.css(group).map do |file|
             puts "... compressing: #{file}"
             Minify.compress(file)
           end
@@ -85,7 +85,7 @@ namespace :minify do
         puts "Compacting css group: #{group}"
 
         File.open(Minify.group_file(group, :css), 'w') do |output|
-          Minify.all_css(group).map do |file|
+          Minify.css(group).map do |file|
             Minify.file_compressed_path(file)
           end.compact.each do |compressed|
             puts "... adding: #{compressed}"
