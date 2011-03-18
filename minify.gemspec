@@ -29,10 +29,10 @@ Gem::Specification.new do |s|
     "lib/minify.rb",
     "lib/minify/helper.rb",
     "lib/minify/railtie.rb",
+    "lib/tasks/minify.rake",
     "minify.gemspec",
     "spec/minify_spec.rb",
-    "spec/spec_helper.rb",
-    "tasks/minify.rake"
+    "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/Kelsin/minify}
   s.licenses = ["MIT"]
