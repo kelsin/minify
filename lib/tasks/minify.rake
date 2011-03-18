@@ -12,9 +12,17 @@ namespace :minify do
   task :build => ['minify:css:build', 'minify:js:build'] do
   end
 
+  desc "Clean all generated css and js files"
+  task :clean => ['minify:less:clean', 'minify:css:clean', 'minify:js:clean'] do
+  end
+
   namespace :less do
     task :mkdir => 'minify:mkdir' do
       FileUtils.mkdir(Minify::LESSC_DIR) unless File.exists?(Minify::LESSC_DIR)
+    end
+
+    task :clean do
+      FileUtils.rm_r(Dir.glob(File.join(Minify::LESSC_DIR, '*')))
     end
 
     desc "Compile .less files"
@@ -45,6 +53,10 @@ namespace :minify do
   namespace :css do
     task :mkdir => 'minify:mkdir' do
       FileUtils.mkdir(Minify::STYLESHEET_COMPRESSED_DIR) unless File.exists?(Minify::STYLESHEET_COMPRESSED_DIR)
+    end
+
+    task :clean do
+      FileUtils.rm_r(Dir.glob(File.join(Minify::STYLESHEET_COMPRESSED_DIR, '*')))
     end
 
     desc "Compile, compress and compact all css files"
@@ -88,6 +100,10 @@ namespace :minify do
   namespace :js do
     task :mkdir => 'minify:mkdir' do
       FileUtils.mkdir(Minify::JAVASCRIPT_COMPRESSED_DIR) unless File.exists?(Minify::JAVASCRIPT_COMPRESSED_DIR)
+    end
+
+    task :clean do
+      FileUtils.rm_r(Dir.glob(File.join(Minify::JAVASCRIPT_COMPRESSED_DIR, '*')))
     end
 
     desc "Compress and compact all js files"
