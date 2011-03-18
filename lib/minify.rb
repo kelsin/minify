@@ -77,6 +77,12 @@ module Minify
     end
   end
 
+  def self.less(group)
+    self.stylesheets[group.to_s].select do |file|
+      /\.less$/ =~ file
+    end
+  end
+
   # Returns true if we have some less files
   def self.includes_less?(*groups)
     !!groups.detect do |group|
