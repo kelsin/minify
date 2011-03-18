@@ -27,7 +27,7 @@ module Minify
         end
       end.flatten.compact.join
 
-      if Minify.dev? and self.includes_less?(*groups)
+      if Minify.dev? and Minify.includes_less?(*groups)
         js_files += javascript_include_tag('less.js')
       end
 
