@@ -3,11 +3,11 @@ module Minify
     include ::ActionView::Helpers::AssetTagHelper
 
     def minify_stylesheets(*groups)
-      handle_css(*groups) + handle_less(*groups)
+      (handle_css(*groups) + handle_less(*groups)).html_safe
     end
 
     def minify_javascripts(*groups)
-      handle_js(*groups)
+      handle_js(*groups).html_safe
     end
 
     private
