@@ -70,23 +70,20 @@ module Minify
     end
   end
 
-  # Returns the list of less files from a group
-  def self.less(group)
-    self.stylesheets[group.to_s].select do |file|
-      /\.less$/ =~ file
-    end
-  end
-
-  # Returns the list of css files from a group
+  # Returns the list of all css files from a group
   def self.css(group)
     self.stylesheets[group.to_s].select do |file|
-      /\.css$/ =~ file
+      /\.(less|css)$/ =~ file
     end
   end
 
-  # Returns the list of css and less files from a group
-  def self.all_css(group)
-    self.less(group) + self.css(group)
+  # Returns true if we have some less files
+  def self.includes_less?(*groups)
+    !!groups.detect do |group|
+      self.css(group).detect do |file|
+        /\.less$/ =~ file
+      end
+    end
   end
 
   # Returns the path of the group file for a certain group name and type (:js or

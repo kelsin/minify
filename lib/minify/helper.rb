@@ -7,7 +7,7 @@ module Minify
     end
 
     def minify_stylesheets(*groups)
-      (handle_css(*groups) + handle_less(*groups)).html_safe
+      handle_css(*groups).html_safe
     end
 
     def minify_javascripts(*groups)
@@ -17,7 +17,7 @@ module Minify
     private
 
     def handle_js(*groups)
-      groups.map do |group|
+      js_files = groups.map do |group|
         if Minify.dev?
           Minify.js(group).map do |file|
             javascript_include_tag file
@@ -26,32 +26,23 @@ module Minify
           javascript_include_tag "minify/#{group}.js"
         end
       end.flatten.compact.join
-    end
 
-    def handle_less(*groups)
-      if Minify.dev?
-        # Link to less files
-        less_files = groups.map do |group|
-          Minify.less(group).map do |file|
-            stylesheet_link_tag file, :rel => 'stylesheet/less'
-          end
-        end.flatten.compact
-
-        unless less_files.empty?
-          less_files << javascript_include_tag('less.js')
-        end
-
-        less_files.join
-      else
-        ''
+      if Minify.dev? and self.includes_less?(*groups)
+        js_files += javascript_include_tag('less.js')
       end
+
+      return js_files
     end
 
     def handle_css(*groups)
       groups.map do |group|
         if Minify.dev?
           Minify.css(group).map do |file|
-            stylesheet_link_tag file
+            if /\.less$/ =~ file
+              stylesheet_link_tag file, :rel => 'stylesheet/less'
+            else
+              stylesheet_link_tag file
+            end
           end
         else
           stylesheet_link_tag "minify/#{group}.css"
