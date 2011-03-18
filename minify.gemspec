@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Christopher Giroir"]
-  s.date = %q{2011-03-17}
+  s.date = %q{2011-03-18}
   s.description = %q{}
   s.email = %q{kelsin@valefor.com}
   s.extra_rdoc_files = [
@@ -28,9 +28,11 @@ Gem::Specification.new do |s|
     "VERSION",
     "lib/minify.rb",
     "lib/minify/helper.rb",
+    "lib/minify/railtie.rb",
     "minify.gemspec",
     "spec/minify_spec.rb",
-    "spec/spec_helper.rb"
+    "spec/spec_helper.rb",
+    "tasks/minify.rake"
   ]
   s.homepage = %q{http://github.com/Kelsin/minify}
   s.licenses = ["MIT"]
