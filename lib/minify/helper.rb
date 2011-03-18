@@ -23,7 +23,7 @@ module Minify
             javascript_include_tag file
           end
         else
-          javascript_include_tag Minify.group_file(group, :js)
+          javascript_include_tag "minify/#{group}.js"
         end
       end.flatten.compact.join
     end
@@ -54,7 +54,7 @@ module Minify
             stylesheet_link_tag file
           end
         else
-          stylesheet_link_tag Minify.group_file(group, :css)
+          stylesheet_link_tag "minify/#{group}.css"
         end
       end.flatten.compact.join
     end
