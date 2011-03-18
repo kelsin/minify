@@ -40,8 +40,9 @@ module Minify
     end
 
     def handle_css(*groups)
-      groups.each do |group|
+      groups.map do |group|
         if Minify.dev?
+          nil
         else
           # Production
           group_file = File.join('minify', "#{group}.css")
@@ -51,10 +52,10 @@ module Minify
           else
             Minify.css(group).map do |file|
               css_file file
-            end.join
+            end
           end
         end
-      end
+      end.flatten.compact.join
     end
   end
 end
