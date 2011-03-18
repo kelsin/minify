@@ -19,7 +19,7 @@ module Minify
            Minify.less(group).map do |file|
              stylesheet_link_tag file, :rel => 'stylesheet/less'
            end
-         end + [javascript_link_tag 'less.js']).flatten.compact.join
+         end + [javascript_include_tag 'less.js']).flatten.compact.join
       end
     end
 
