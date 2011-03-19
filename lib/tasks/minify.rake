@@ -2,6 +2,10 @@ require 'open-uri'
 require 'fileutils'
 require 'minify'
 
+desc "Build minified files and then clean intermediate ones"
+task :minify => ['minify:build', 'minify:clean'] do
+end
+
 namespace :minify do
   task :mkdir do
     FileUtils.mkdir(File.join(Minify::STYLESHEET_DIR, 'minify')) unless File.exists?(File.join(Minify::STYLESHEET_DIR, 'minify'))
