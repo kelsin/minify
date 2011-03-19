@@ -6,15 +6,88 @@ caching. I wrote it with the following limitations in mind:
 * It must not rely on generating files on production.
   * Heroku uses a read only file system (as well as other cloud providers).
   * Don't want to cause any delays on first hit (like the built in Rails mechanisms).
-  * Don't want to install any java and other programs on the server
-* I love the idea of a config/assets.yml that stores a list of all js and css files
-  used. This comes from the jammit library which provided lots of inspiration.
+  * Don't want to install any extra programs on production servers.
+* I love the idea of a config/assets.yml that stores a list of all js and css
+  files used. This comes from the
+  [Jammit](http://documentcloud.github.com/jammit/) library which provided lots
+  of inspiration.
 * I want to use the YUI compressor for now (this can be abstracted later).
 * I want to include rake and cap tasks for inclusion in deploy scripts.
 * I want to have no extra steps at all when working in the dev environment.
-* I use slim for my templating and lesscss for css work.
+* I use [Slim](http://slim-lang.com/) for my templating and
+  [Less](http://lesscss.org/) for css work.
   * Development should use the client side less.js
-  * Production should compile less scripts
+  * Production should rely on pre-deployment creation of compiled, compressed
+    and compacted code.
+
+## Usage
+
+### Assets.yml
+
+Just like Jammit you need to create an assets.yml file. For now this file only
+taks your list of javascript and stylesheet files. You can not glob here. You
+have to list all of the files. Here is an example file:
+
+    stylesheets:
+      robotpuffin:
+        - reset.css
+        - robotpuffin.less
+    javascripts:
+      robotpuffin:
+        - jquery.js
+        - rails.js
+
+In this example (for a small simple site) I have two css files. One is Eric
+Meyer's [reset.css](http://meyerweb.com/eric/tools/css/reset/) and the other is
+a less css file for my robotpuffin site. I then have two javascript files,
+jquery.js and the rails.js jquery adapter. I put both css and js files into a
+group named `robotpuffin`. All of these files are listed relative to
+`public/stylesheets` and `public/javascripts`.
+
+### Folder Layout
+
+Minify puts it's final collected files into `public/stylesheets/minify` and
+`public/javascripts/minify`. When you use less files they get compiled as css
+files into `public/stylesheets/minify/lessc`. After YUI compression files get
+places into `public/stylesheets/minify/yui` and `public/javascripts/minify/yui`.
+
+In the above example, after running the rake tasks we would have the following
+files:
+
+    public/
+      stylesheets/
+        |- reset.css           - Original raw reset.css
+        |- robotpuffin.less    - Original raw robotpuffin.less
+        minify/
+          |- robotpuffin.css   - Group file containing both reset.css and robotpuffin.less
+          lessc/
+            |- robotpuffin.css - Compiled robotpuffin.less
+          yui/
+            |- reset.css       - YUI Compressed reset.css
+            |- robotpuffin.css - YUI Compressed robotpuffin.css
+      javascripts/
+        |- jquery.js           - Original raw jquery.js
+        |- rails.js            - Original raw rails.js
+        minify/
+          |- robotpuffin.js    - Group file containing both jquery.js and rails.js
+          yui/
+            |- jquery.js       - YUI Compressed jquery.js
+            |- rails.js        - YUI Compressed rails.js
+
+### Rails Helpers
+
+To include these files in your rails layouts you can use the following two
+helpers:
+
+    minify_stylesheets :robotpuffin
+    minify_javascripts :robotpuffin
+
+If you do want to include both css and javascript you can just use the simple
+version:
+
+    minify :robotpuffin
+
+In production all these do is link to the group files
 
 ## Required Gems
 

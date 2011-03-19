@@ -20,8 +20,8 @@ module Minify
   JAVASCRIPT_DIR = File.join(ROOT, 'public', 'javascripts')
   STYLESHEET_DIR = File.join(ROOT, 'public', 'stylesheets')
   LESSC_DIR = File.join(STYLESHEET_DIR, 'minify', 'lessc')
-  JAVASCRIPT_COMPRESSED_DIR = File.join(JAVASCRIPT_DIR, 'minify', 'js')
-  STYLESHEET_COMPRESSED_DIR = File.join(JAVASCRIPT_DIR, 'minify', 'css')
+  JAVASCRIPT_COMPRESSED_DIR = File.join(JAVASCRIPT_DIR, 'minify', 'yui')
+  STYLESHEET_COMPRESSED_DIR = File.join(STYLESHEET_DIR, 'minify', 'yui')
 
   LESS_JS = 'http://lesscss.googlecode.com/files/less-1.0.41.min.js'
 
