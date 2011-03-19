@@ -74,7 +74,7 @@ files:
             |- jquery.js       - YUI Compressed jquery.js
             |- rails.js        - YUI Compressed rails.js
 
-### Git Ignoring Intermediate Files
+#### Git Ignoring Intermediate Files
 
 If you want to keep the intermediate files out of git just add this to
 `.gitignore`:
