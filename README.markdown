@@ -95,8 +95,8 @@ helpers:
     minify_stylesheets :robotpuffin
     minify_javascripts :robotpuffin
 
-If you do want to include both css and javascript you can just use the simple
-version:
+If you do want to include both css and javascript with the same group names you
+can just use the simple version:
 
     minify :robotpuffin
 
