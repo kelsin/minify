@@ -21,7 +21,7 @@ namespace :minify do
   end
 
   namespace :clean do
-    desc "Clean everything including group files"
+    desc "Completely remove the minify directories"
     task :all do
       FileUtils.rm_r(File.join(Minify::JAVASCRIPT_DIR, 'minify'))
       FileUtils.rm_r(File.join(Minify::STYLESHEET_DIR, 'minify'))
