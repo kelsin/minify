@@ -18,6 +18,18 @@ namespace :minify do
     FileUtils.rm(Dir.glob(File.join(Minify::STYLESHEET_DIR, 'minify', '*.css')))
   end
 
+  desc "Add lines to your gitignore to ignore minify intermediate files"
+  task :gitignore do
+    gitignore = File.join(Minify::ROOT, '.gitignore')
+    if File.exists?(gitignore)
+      File.open(gitignore, 'a') do |file|
+        file.puts 'public/stylesheets/minify/lessc'
+        file.puts 'public/stylesheets/minify/yui'
+        file.puts 'public/javascripts/minify/yui'
+      end
+    end
+  end
+
   namespace :less do
     task :mkdir => 'minify:mkdir' do
       FileUtils.mkdir(Minify::LESSC_DIR) unless File.exists?(Minify::LESSC_DIR)
@@ -27,7 +39,6 @@ namespace :minify do
       FileUtils.rm_r(Dir.glob(File.join(Minify::LESSC_DIR, '*')))
     end
 
-    desc "Compile .less files"
     task :compile => :mkdir do
       if Minify.lessc_available?
         Minify.stylesheets.keys.each do |group|
@@ -41,7 +52,6 @@ namespace :minify do
       end
     end
 
-    desc "Download less.js to #{Minify::JAVASCRIPT_DIR}"
     task :install do
       puts "Downloading #{Minify::LESS_JS} to #{File.join(Minify::JAVASCRIPT_DIR, 'less.js')}"
       File.open(File.join(Minify::JAVASCRIPT_DIR, 'less.js'), 'w') do |output|
@@ -61,11 +71,9 @@ namespace :minify do
       FileUtils.rm_r(Dir.glob(File.join(Minify::STYLESHEET_COMPRESSED_DIR, '*')))
     end
 
-    desc "Compile, compress and compact all css files"
     task :build => ['minify:less:compile', :compress, :compact] do
     end
 
-    desc "Run YUI Compressor on all css files"
     task :compress => :mkdir do
       if Minify.yui_available?
         Minify.stylesheets.keys.each do |group|
@@ -79,7 +87,6 @@ namespace :minify do
       end
     end
 
-    desc "Compact all minified css into group files"
     task :compact => :mkdir do
       Minify.stylesheets.keys.each do |group|
         puts "Compacting css group: #{group}"
@@ -108,11 +115,9 @@ namespace :minify do
       FileUtils.rm_r(Dir.glob(File.join(Minify::JAVASCRIPT_COMPRESSED_DIR, '*')))
     end
 
-    desc "Compress and compact all js files"
     task :build => [:compress, :compact] do
     end
 
-    desc "Run YUI Compressor on all js files"
     task :compress => :mkdir do
       if Minify.yui_available?
         Minify.javascripts.keys.each do |group|
@@ -126,7 +131,6 @@ namespace :minify do
       end
     end
 
-    desc "Compact all minified css into group files"
     task :compact => :mkdir do
       Minify.javascripts.keys.each do |group|
         puts "Compacting js group: #{group}"

@@ -74,6 +74,18 @@ files:
             |- jquery.js       - YUI Compressed jquery.js
             |- rails.js        - YUI Compressed rails.js
 
+### .gitignore
+
+If you want to keep the intermediate files out of git just add this to
+`.gitignore`:
+
+    public/stylesheets/minify/lessc
+    public/stylesheets/minify/yui
+    public/javascripts/minify/yui
+
+You can use the rake task `minify:gitignore` to append these lines to your
+`.gitignore`.
+
 ### Rails Helpers
 
 To include these files in your rails layouts you can use the following two
