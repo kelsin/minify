@@ -14,8 +14,14 @@ namespace :minify do
 
   desc "Clean all generated css and js files"
   task :clean => ['minify:less:clean', 'minify:css:clean', 'minify:js:clean'] do
-    FileUtils.rm(Dir.glob(File.join(Minify::JAVASCRIPT_DIR, 'minify', '*.js')))
-    FileUtils.rm(Dir.glob(File.join(Minify::STYLESHEET_DIR, 'minify', '*.css')))
+  end
+
+  namespace :clean do
+    desc "Clean everything including group files"
+    task :all => 'minify:clear' do
+      FileUtils.rm(Dir.glob(File.join(Minify::JAVASCRIPT_DIR, 'minify', '*.js')))
+      FileUtils.rm(Dir.glob(File.join(Minify::STYLESHEET_DIR, 'minify', '*.css')))
+    end
   end
 
   desc "Add lines to your gitignore to ignore minify intermediate files"
