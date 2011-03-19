@@ -22,7 +22,7 @@ namespace :minify do
 
   namespace :clean do
     desc "Clean everything including group files"
-    task :all => 'minify:clear' do
+    task :all => 'minify:clean' do
       FileUtils.rm(Dir.glob(File.join(Minify::JAVASCRIPT_DIR, 'minify', '*.js')))
       FileUtils.rm(Dir.glob(File.join(Minify::STYLESHEET_DIR, 'minify', '*.css')))
     end
