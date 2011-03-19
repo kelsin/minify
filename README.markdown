@@ -74,7 +74,7 @@ files:
             |- jquery.js       - YUI Compressed jquery.js
             |- rails.js        - YUI Compressed rails.js
 
-### .gitignore
+### Git Ignoring Intermediate Files
 
 If you want to keep the intermediate files out of git just add this to
 `.gitignore`:
@@ -83,8 +83,9 @@ If you want to keep the intermediate files out of git just add this to
     public/stylesheets/minify/yui
     public/javascripts/minify/yui
 
-You can use the rake task `minify:gitignore` to append these lines to your
-`.gitignore`.
+You can add these lines to .gitignore by running:
+
+    rake minify:gitignore
 
 ### Rails Helpers
 
