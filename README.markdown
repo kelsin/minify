@@ -87,6 +87,16 @@ You can add these lines to .gitignore by running:
 
     rake minify:gitignore
 
+### Compiling and Compressing Files
+
+To have minify compile, compress and collect your assets just run:
+
+    rake minify:build
+
+To remove all of these files just run:
+
+    rake minify:clean
+
 ### Rails Helpers
 
 To include these files in your rails layouts you can use the following two
