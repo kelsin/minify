@@ -42,7 +42,7 @@ namespace :minify do
     end
 
     task :clean do
-      FileUtils.rm_r(Dir.glob(File.join(Minify::LESSC_DIR, '*')))
+      FileUtils.rm_r(Minify::LESSC_DIR) if File.exists?(Minify::LESSC_DIR)
     end
 
     task :compile => :mkdir do
@@ -74,7 +74,7 @@ namespace :minify do
     end
 
     task :clean do
-      FileUtils.rm_r(Dir.glob(File.join(Minify::STYLESHEET_COMPRESSED_DIR, '*')))
+      FileUtils.rm_r(Minify::STYLESHEET_COMPRESSED_DIR) if File.exists?(Minify::STYLESHEET_COMPRESSED_DIR)
     end
 
     task :build => ['minify:less:compile', :compress, :compact] do
@@ -118,7 +118,7 @@ namespace :minify do
     end
 
     task :clean do
-      FileUtils.rm_r(Dir.glob(File.join(Minify::JAVASCRIPT_COMPRESSED_DIR, '*')))
+      FileUtils.rm_r(Minify::JAVASCRIPT_COMPRESSED_DIR) if File.exists?(Minify::JAVASCRIPT_COMPRESSED_DIR)
     end
 
     task :build => [:compress, :compact] do
